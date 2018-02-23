@@ -30,7 +30,7 @@
       this.lbl_DownloadName = new System.Windows.Forms.Label();
       this.UpdatePgb = new System.Windows.Forms.ProgressBar();
       this.TitleLbl = new System.Windows.Forms.Label();
-      this.lbl_CloseApplication = new System.Windows.Forms.Label();
+      this.CloseApplication = new System.Windows.Forms.Label();
       this.HeadBgd = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
@@ -40,7 +40,7 @@
       this.UpdateBtn.Name = "UpdateBtn";
       this.UpdateBtn.Size = new System.Drawing.Size(116, 32);
       this.UpdateBtn.TabIndex = 18;
-      this.UpdateBtn.Text = "Check|Fix";
+      this.UpdateBtn.Text = "更新|修复";
       this.UpdateBtn.UseVisualStyleBackColor = true;
       this.UpdateBtn.Click += new System.EventHandler(this.UpdateBtn_Click);
       // 
@@ -50,9 +50,9 @@
       this.LatestVersionLabel.ForeColor = System.Drawing.Color.PaleGreen;
       this.LatestVersionLabel.Location = new System.Drawing.Point(10, 49);
       this.LatestVersionLabel.Name = "LatestVersionLabel";
-      this.LatestVersionLabel.Size = new System.Drawing.Size(83, 12);
+      this.LatestVersionLabel.Size = new System.Drawing.Size(53, 12);
       this.LatestVersionLabel.TabIndex = 15;
-      this.LatestVersionLabel.Text = "LatestVersion";
+      this.LatestVersionLabel.Text = "最新版本";
       // 
       // CurrentVersionLabel
       // 
@@ -60,9 +60,9 @@
       this.CurrentVersionLabel.ForeColor = System.Drawing.Color.PaleGreen;
       this.CurrentVersionLabel.Location = new System.Drawing.Point(10, 33);
       this.CurrentVersionLabel.Name = "CurrentVersionLabel";
-      this.CurrentVersionLabel.Size = new System.Drawing.Size(89, 12);
+      this.CurrentVersionLabel.Size = new System.Drawing.Size(53, 12);
       this.CurrentVersionLabel.TabIndex = 16;
-      this.CurrentVersionLabel.Text = "CurrentVersion";
+      this.CurrentVersionLabel.Text = "当前版本";
       // 
       // lbl_DownloadName
       // 
@@ -72,7 +72,7 @@
       this.lbl_DownloadName.Name = "lbl_DownloadName";
       this.lbl_DownloadName.Size = new System.Drawing.Size(53, 12);
       this.lbl_DownloadName.TabIndex = 17;
-      this.lbl_DownloadName.Text = "FileName";
+      this.lbl_DownloadName.Text = "文件名称";
       this.lbl_DownloadName.Visible = false;
       // 
       // UpdatePgb
@@ -98,16 +98,16 @@
       this.TitleLbl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HeadBgd_MouseDown);
       this.TitleLbl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HeadBgd_MouseMove);
       // 
-      // lbl_CloseApplication
+      // CloseApplication
       // 
-      this.lbl_CloseApplication.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(73)))), ((int)(((byte)(120)))));
-      this.lbl_CloseApplication.ForeColor = System.Drawing.Color.Transparent;
-      this.lbl_CloseApplication.Image = ((System.Drawing.Image)(resources.GetObject("lbl_CloseApplication.Image")));
-      this.lbl_CloseApplication.Location = new System.Drawing.Point(225, 7);
-      this.lbl_CloseApplication.Name = "lbl_CloseApplication";
-      this.lbl_CloseApplication.Size = new System.Drawing.Size(16, 16);
-      this.lbl_CloseApplication.TabIndex = 12;
-      this.lbl_CloseApplication.Click += new System.EventHandler(this.lbl_CloseApplication_Click);
+      this.CloseApplication.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(73)))), ((int)(((byte)(120)))));
+      this.CloseApplication.ForeColor = System.Drawing.Color.Transparent;
+      this.CloseApplication.Image = ((System.Drawing.Image)(resources.GetObject("CloseApplication.Image")));
+      this.CloseApplication.Location = new System.Drawing.Point(225, 7);
+      this.CloseApplication.Name = "CloseApplication";
+      this.CloseApplication.Size = new System.Drawing.Size(16, 16);
+      this.CloseApplication.TabIndex = 12;
+      this.CloseApplication.Click += new System.EventHandler(this.CloseApplication_Click);
       // 
       // HeadBgd
       // 
@@ -132,11 +132,12 @@
       this.Controls.Add(this.lbl_DownloadName);
       this.Controls.Add(this.UpdatePgb);
       this.Controls.Add(this.TitleLbl);
-      this.Controls.Add(this.lbl_CloseApplication);
+      this.Controls.Add(this.CloseApplication);
       this.Controls.Add(this.HeadBgd);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Name = "Updater";
       this.Text = "客户端更新器";
+      this.Load += new System.EventHandler(this.Updater_Load);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -150,7 +151,7 @@
     private System.Windows.Forms.Label lbl_DownloadName;
     private System.Windows.Forms.ProgressBar UpdatePgb;
     private System.Windows.Forms.Label TitleLbl;
-    private System.Windows.Forms.Label lbl_CloseApplication;
+    private System.Windows.Forms.Label CloseApplication;
     private System.Windows.Forms.Label HeadBgd;
   }
 }
