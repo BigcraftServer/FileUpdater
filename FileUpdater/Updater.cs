@@ -128,9 +128,13 @@ namespace FileUpdater {
         foreach (var file in releativeDirectory.Item2) {
           switch (file.Event) {
             case Enum.FileEventEnum.Add:
+              bool fileExists = FileHelper.CheckFileExists(file, releativeDirectory.Item1);
+              if (!fileExists)
+                HttpHelper.DownloadFile(serverConfig, file, releativeDirectory.Item1, this.UpdatePgb, this.lbl_DownloadName);
               //Download
               break;
             case Enum.FileEventEnum.Delete:
+              FileHelper.Delete(file, releativeDirectory.Item1);
               //Delete
               break;
           }

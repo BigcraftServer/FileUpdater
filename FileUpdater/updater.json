@@ -2,6 +2,6 @@
   "CurrentVersion": "0.0.1",
   "ServerUrl": "http://www.bigcraft.cn:44444/",
   "MainFile": "server.json",
-  "GenerateDir": [ ".minecraft\\mods" ],
+  "GenerateDir": [ ".minecraft\\mods\\" ],
   "Debug": true
 }
