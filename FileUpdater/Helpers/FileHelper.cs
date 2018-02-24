@@ -11,7 +11,7 @@ namespace FileUpdater.Helpers {
   public static class FileHelper {
     public static string CalculateMD5(string filename) {
       using (var md5 = MD5.Create()) {
-        using (var stream = File.OpenRead(filename)) {
+        using (var stream = System.IO.File.OpenRead(filename)) {
           var hash = md5.ComputeHash(stream);
           return BitConverter.ToString(hash).Replace("-", "").ToUpperInvariant();
         }
@@ -46,7 +46,7 @@ namespace FileUpdater.Helpers {
             });
           }
           result.Add(directory);
-          var subDirectories = Directory.GetDirectories(dir);
+          var subDirectories = System.IO.Directory.GetDirectories(dir);
           if (subDirectories.Any()) {
             subDirectories = subDirectories.Select(c => c += "\\").ToArray();
             result.AddRange(GetDirectories(subDirectories, fileEvent));
@@ -68,6 +68,7 @@ namespace FileUpdater.Helpers {
       }
       return directory;
     }
+
     public static void Delete(Models.File file, string parentPath) {
       var fullPath = $"{parentPath}{file.Name}";
       if (File.Exists(fullPath)) {
@@ -81,14 +82,13 @@ namespace FileUpdater.Helpers {
         }
       }
     }
-    public static bool CheckFileExists(Models.File file, string parentPath, bool deleteOddFile = true) {
+    public static bool CheckFileExists(Models.File file, string parentPath) {
       bool result = false;
       var fullPath = $"{parentPath}{file.Name}";
       if (File.Exists(fullPath) && CalculateMD5(fullPath).Equals(file.MD5)) {
         result = true;
-      } else if (deleteOddFile) {
+      } else {
         result = false;
-        Delete(file, parentPath);
       }
       return result;
     }

@@ -36,7 +36,7 @@ namespace FileUpdater.Helpers {
     ///// <param name="filename">下载后的存放地址</param>        
     ///// <param name="prog">用于显示的进度条</param>        
     ///// 
-    public static void DownloadFile(ServerConfig serverConfig, Models.File file, string parentPath, System.Windows.Forms.ProgressBar prog, System.Windows.Forms.Label label1) {
+    public static void DownloadFile(ServerConfig serverConfig, Models.File file, string parentPath, System.Windows.Forms.ProgressBar downloadPgb) {
       string fullpath = $"{parentPath}{file.Name}";
       Uri uri = new Uri($"{serverConfig.CDNAddress}{fullpath}");
       float percent = 0;
@@ -47,21 +47,20 @@ namespace FileUpdater.Helpers {
         HttpWebRequest Myrq = (HttpWebRequest)WebRequest.Create(uri);
         using (HttpWebResponse myrp = (HttpWebResponse)Myrq.GetResponse()) {
           long totalBytes = myrp.ContentLength;
-          if (prog != null) {
-            prog.Maximum = (int)totalBytes;
+          if (downloadPgb != null) {
+            downloadPgb.Maximum = (int)totalBytes;
           }
           using (Stream st = myrp.GetResponseStream()) {
             using (Stream so = new FileStream(fullpath, FileMode.Create)) {
               long totalDownloadedByte = 0;
               byte[] by = new byte[1024];
               int osize = st.Read(by, 0, (int)by.Length);
-              label1.Text = fullpath.Substring(fullpath.LastIndexOf("\\") + 1);
               while (osize > 0) {
                 totalDownloadedByte = osize + totalDownloadedByte;
                 System.Windows.Forms.Application.DoEvents();
                 so.Write(by, 0, osize);
-                if (prog != null) {
-                  prog.Value = (int)totalDownloadedByte;
+                if (downloadPgb != null) {
+                  downloadPgb.Value = (int)totalDownloadedByte;
                 }
                 osize = st.Read(by, 0, (int)by.Length);
 

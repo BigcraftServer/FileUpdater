@@ -50,9 +50,9 @@
       this.LatestVersionLabel.ForeColor = System.Drawing.Color.PaleGreen;
       this.LatestVersionLabel.Location = new System.Drawing.Point(10, 49);
       this.LatestVersionLabel.Name = "LatestVersionLabel";
-      this.LatestVersionLabel.Size = new System.Drawing.Size(53, 12);
+      this.LatestVersionLabel.Size = new System.Drawing.Size(83, 12);
       this.LatestVersionLabel.TabIndex = 15;
-      this.LatestVersionLabel.Text = "最新版本";
+      this.LatestVersionLabel.Text = "更新检测中...";
       // 
       // CurrentVersionLabel
       // 
@@ -70,9 +70,9 @@
       this.lbl_DownloadName.ForeColor = System.Drawing.Color.PaleGreen;
       this.lbl_DownloadName.Location = new System.Drawing.Point(10, 65);
       this.lbl_DownloadName.Name = "lbl_DownloadName";
-      this.lbl_DownloadName.Size = new System.Drawing.Size(53, 12);
+      this.lbl_DownloadName.Size = new System.Drawing.Size(83, 12);
       this.lbl_DownloadName.TabIndex = 17;
-      this.lbl_DownloadName.Text = "文件名称";
+      this.lbl_DownloadName.Text = "更新检测中...";
       this.lbl_DownloadName.Visible = false;
       // 
       // UpdatePgb
@@ -137,7 +137,9 @@
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Name = "Updater";
       this.Text = "客户端更新器";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Updater_FormClosing);
       this.Load += new System.EventHandler(this.Updater_Load);
+      this.Shown += new System.EventHandler(this.Updater_Shown);
       this.ResumeLayout(false);
       this.PerformLayout();
 
