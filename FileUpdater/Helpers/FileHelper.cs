@@ -73,7 +73,6 @@ namespace FileUpdater.Helpers {
       }
       return directory;
     }
-
     public static void Delete(Models.File file, string parentPath) {
       var fullPath = $"{parentPath}{file.Name}";
       if (File.Exists(fullPath)) {

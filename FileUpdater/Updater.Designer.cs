@@ -124,9 +124,11 @@
       // 
       // pictureBox1
       // 
+      this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(73)))), ((int)(((byte)(120)))));
       this.pictureBox1.Location = new System.Drawing.Point(2, 1);
       this.pictureBox1.Name = "pictureBox1";
       this.pictureBox1.Size = new System.Drawing.Size(25, 25);
+      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
       this.pictureBox1.TabIndex = 19;
       this.pictureBox1.TabStop = false;
       // 

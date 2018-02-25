@@ -113,6 +113,7 @@ namespace FileUpdater {
         this.serverConfig = HttpHelper.GetJsonFile<ServerConfig>(serverConfigUri);
         LoadServerDirectories();
         LoadClientDirectories();
+        LoadIcon();
       } catch (Exception ex) {
         this.LatestVersionLabel.Text = "未连接到远程服务器";
         this.LatestVersionLabel.ForeColor = Color.Red;
@@ -139,19 +140,27 @@ namespace FileUpdater {
       this.serverConfig.Directories = directories;
     }
     private void LoadIcon(bool forceUpdate = false) {
-      bool isAbsolutePath = Uri.TryCreate(serverConfig.Icon, UriKind.Absolute, out Uri uri);
-      IList<Models.Directory> directories = null;
-      if (!isAbsolutePath) {
-        directories = HttpHelper.GetJsonFile<List<Models.Directory>>(uri);
-      } else {
-        bool isRelativePath = Uri.TryCreate($"{clientConfig.ServerUrl}{serverConfig.Icon}", UriKind.Absolute, out uri);
-        if (isRelativePath) {
-          directories = HttpHelper.GetJsonFile<List<Models.Directory>>(uri);
+      if (forceUpdate || (!string.IsNullOrEmpty(serverConfig.Icon) && !clientConfig.Icon.Equals(serverConfig.Icon))) {
+        bool isAbsolutePath = Uri.TryCreate(serverConfig.Icon, UriKind.Absolute, out Uri uri);
+        byte[] iconBytes;
+        if (isAbsolutePath) {
+          iconBytes = HttpHelper.GetBytes(uri);
         } else {
-          throw new Exception($"去它妈的什么路径?{clientConfig.ServerUrl}{serverConfig.Icon}");
+          bool isRelativePath = Uri.TryCreate($"{clientConfig.ServerUrl}{serverConfig.Icon}", UriKind.Absolute, out uri);
+          if (isRelativePath) {
+            iconBytes = HttpHelper.GetBytes(uri);
+          } else {
+            throw new Exception($"去它妈的什么路径?{clientConfig.ServerUrl}{serverConfig.Icon}");
+          }
         }
+        System.IO.File.WriteAllBytes("icon.ico", iconBytes);
+        clientConfig.Icon = serverConfig.Icon;
+        DisplayIcon(iconBytes);
+      } else {
+        clientConfig.Icon = serverConfig.Icon;
+        DisplayIcon(Convert.FromBase64String(clientConfig.Base64Icon));
       }
-      this.serverConfig.Directories = directories;
+
     }
     #endregion
 
@@ -271,15 +280,14 @@ namespace FileUpdater {
     #endregion
 
     #region 图标展示
-    //private void ShowIcon(string base64Icon) {
-    //  using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(base64Icon))) {
-    //    Icon icon = new Icon(ms);
-    //    this.Icon = icon;
-    //    pictureBox1.Image = Bitmap.FromHicon(icon.Handle);
-    //  }
-
-
-    //}
+    private void DisplayIcon(byte[] iconBytes) {
+      clientConfig.Base64Icon = Convert.ToBase64String(iconBytes);
+      using (MemoryStream ms = new MemoryStream(iconBytes)) {
+        Icon icon = new Icon(ms);
+        this.Icon = icon;
+        pictureBox1.Image = Bitmap.FromHicon(icon.Handle);
+      }
+    }
     #endregion
   }
 }

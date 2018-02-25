@@ -73,13 +73,12 @@ namespace FileUpdater.Helpers {
         throw;
       }
     }
-    public static Stream GetStream(Uri uri) {
-      HttpWebRequest Myrq = (HttpWebRequest)WebRequest.Create(uri);
-      using (HttpWebResponse myrp = (HttpWebResponse)Myrq.GetResponse()) {
-        using (Stream st = myrp.GetResponseStream()) {
-          return st;
-        }
+    public static byte[] GetBytes(Uri uri) {
+      byte[] data;
+      using (WebClient downloadWebClient = new WebClient()) {
+        data = downloadWebClient.DownloadData(uri);
       }
+      return data;
     }
   }
 }
