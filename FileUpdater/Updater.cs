@@ -16,7 +16,6 @@ namespace FileUpdater {
     private ClientConfig clientConfig;
     private ServerConfig serverConfig;
     private IList<Models.Directory> clientDirectories;
-    private Icon icon;
     public Updater() {
       InitializeComponent();
       // 允许随便更改控件
@@ -114,10 +113,10 @@ namespace FileUpdater {
         LoadServerDirectories();
         LoadClientDirectories();
         LoadIcon();
-      } catch (Exception ex) {
+      } catch (Exception) {
         this.LatestVersionLabel.Text = "未连接到远程服务器";
         this.LatestVersionLabel.ForeColor = Color.Red;
-        throw ex;
+        throw;
 
       }
     }

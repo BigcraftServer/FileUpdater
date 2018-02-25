@@ -18,12 +18,12 @@ namespace FileUpdater.Helpers {
         try {
           Byte[] pageData = DownloadClient.DownloadData(uri);
           result = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(pageData));
-        } catch (Exception ex) {
+        } catch (Exception) {
           //转换失败,重试
           if (retryCount < 3)
             result = GetJsonFile<T>(uri, ++retryCount);
           else
-            throw ex;
+            throw;
         }
       }
       return result;
