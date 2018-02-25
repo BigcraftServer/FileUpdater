@@ -28,14 +28,13 @@ namespace FileUpdater.Helpers {
       }
       return result;
     }
-
-    ///// <summary>        
-    ///// c#,.net 下载文件        
-    ///// </summary>        
-    ///// <param name="URL">下载文件地址</param>       
-    ///// <param name="filename">下载后的存放地址</param>        
-    ///// <param name="prog">用于显示的进度条</param>        
-    ///// 
+    /// <summary>
+    /// 下载文件
+    /// </summary>
+    /// <param name="serverConfig"></param>
+    /// <param name="file"></param>
+    /// <param name="parentPath"></param>
+    /// <param name="downloadPgb"></param>
     public static void DownloadFile(ServerConfig serverConfig, Models.File file, string parentPath, System.Windows.Forms.ProgressBar downloadPgb) {
       string fullpath = $"{parentPath}{file.Name}";
       Uri uri = new Uri($"{serverConfig.CDNAddress}{fullpath}");
@@ -72,6 +71,14 @@ namespace FileUpdater.Helpers {
         }
       } catch (Exception) {
         throw;
+      }
+    }
+    public static Stream GetStream(Uri uri) {
+      HttpWebRequest Myrq = (HttpWebRequest)WebRequest.Create(uri);
+      using (HttpWebResponse myrp = (HttpWebResponse)Myrq.GetResponse()) {
+        using (Stream st = myrp.GetResponseStream()) {
+          return st;
+        }
       }
     }
   }

@@ -25,5 +25,13 @@ namespace FileUpdater.Models {
     /// 是否生成目录
     /// </summary>
     public bool? Debug { get; set; }
+    /// <summary>
+    /// Icon图标地址
+    /// </summary>
+    public string Icon { get; set; }
+    /// <summary>
+    /// Icon图标Base64
+    /// </summary>
+    public string Base64Icon { get; set; }
   }
 }

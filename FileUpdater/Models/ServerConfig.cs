@@ -10,5 +10,6 @@ namespace FileUpdater.Models {
     public string Remark { get; set; }
     public string CDNAddress { get; set; }
     public IList<Directory> Directories { get; set; }
+    public string Icon { get; set; }
   }
 }

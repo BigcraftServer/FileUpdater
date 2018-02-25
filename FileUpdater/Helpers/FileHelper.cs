@@ -35,6 +35,11 @@ namespace FileUpdater.Helpers {
       List<Models.Directory> result = new List<Models.Directory>();
       if (directories.Any()) {
         foreach (var dir in directories) {
+
+          if (!Directory.Exists(dir)) {
+            Directory.CreateDirectory(dir);
+          }
+
           Models.Directory directory = new Models.Directory();
           directory.DirName = dir;
           directory.Files = new List<Models.File>();

@@ -16,6 +16,7 @@ namespace FileUpdater {
     private ClientConfig clientConfig;
     private ServerConfig serverConfig;
     private IList<Models.Directory> clientDirectories;
+    private Icon icon;
     public Updater() {
       InitializeComponent();
       // 允许随便更改控件
@@ -137,6 +138,21 @@ namespace FileUpdater {
       }
       this.serverConfig.Directories = directories;
     }
+    private void LoadIcon(bool forceUpdate = false) {
+      bool isAbsolutePath = Uri.TryCreate(serverConfig.Icon, UriKind.Absolute, out Uri uri);
+      IList<Models.Directory> directories = null;
+      if (!isAbsolutePath) {
+        directories = HttpHelper.GetJsonFile<List<Models.Directory>>(uri);
+      } else {
+        bool isRelativePath = Uri.TryCreate($"{clientConfig.ServerUrl}{serverConfig.Icon}", UriKind.Absolute, out uri);
+        if (isRelativePath) {
+          directories = HttpHelper.GetJsonFile<List<Models.Directory>>(uri);
+        } else {
+          throw new Exception($"去它妈的什么路径?{clientConfig.ServerUrl}{serverConfig.Icon}");
+        }
+      }
+      this.serverConfig.Directories = directories;
+    }
     #endregion
 
     #region 对比差异
@@ -217,6 +233,8 @@ namespace FileUpdater {
     #region 更新检测
     private void CheckUpdate(bool forceUpdate = false) {
       lbl_DownloadName.Visible = true;
+      lbl_DownloadName.ForeColor = Color.DarkOrange;
+      lbl_DownloadName.Text = "检查中...";
       LatestVersionLabel.Text = serverConfig.LatestVersion;
       if (forceUpdate || !clientConfig.CurrentVersion.Equals(serverConfig.LatestVersion)) {
         LatestVersionLabel.ForeColor = Color.Red;
@@ -236,8 +254,10 @@ namespace FileUpdater {
     }
     private void UpdateSuccessful(bool noUpdated = false) {
       if (!noUpdated) {
-        lbl_DownloadName.Text = $"完毕,可以愉悦的启动游戏了";
+        clientConfig.CurrentVersion = serverConfig.LatestVersion;
+        this.CurrentVersionLabel.Text = clientConfig.CurrentVersion;
 
+        lbl_DownloadName.Text = $"完毕,可以愉悦的启动游戏了";
         lbl_DownloadName.ForeColor = Color.PaleGreen;
         LatestVersionLabel.ForeColor = Color.PaleGreen;
 
@@ -250,5 +270,16 @@ namespace FileUpdater {
     }
     #endregion
 
+    #region 图标展示
+    //private void ShowIcon(string base64Icon) {
+    //  using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(base64Icon))) {
+    //    Icon icon = new Icon(ms);
+    //    this.Icon = icon;
+    //    pictureBox1.Image = Bitmap.FromHicon(icon.Handle);
+    //  }
+
+
+    //}
+    #endregion
   }
 }

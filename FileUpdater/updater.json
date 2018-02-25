@@ -3,5 +3,7 @@
   "ServerUrl": "http://www.bigcraft.cn:44444/",
   "MainFile": "server.json",
   "GenerateDir": [ ".minecraft\\mods\\" ],
-  "Debug": true
+  "Debug": true,
+  "Icon": "",
+  "Base64Icon" : ""
 }
