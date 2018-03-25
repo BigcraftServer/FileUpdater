@@ -1,15 +1,19 @@
 ﻿using FileUpdater.Helpers;
 using FileUpdater.Models;
+using FileUpdater.Properties;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static FileUpdater.UpdaterCore;
 
 namespace FileUpdater {
   public partial class Updater : Form {
@@ -57,7 +61,7 @@ namespace FileUpdater {
 
       if (clientConfig.Debug.HasValue && clientConfig.Debug.Value) {
         clientConfig.Debug = false;
-        GenerateLocalFiles();
+        LoadClientDirectories();
       }
     }
     /// <summary>
@@ -91,12 +95,19 @@ namespace FileUpdater {
     /// <summary>
     /// 加载客户端Config
     /// </summary>
-    /// <param name="path"></param>
-    private void LoadClientConfig(string path = "./updater.json") {
-      using (StreamReader fs = new StreamReader(path, Encoding.UTF8)) {
-        this.clientConfig = JsonConvert.DeserializeObject<ClientConfig>(fs.ReadToEnd());
-      }
-    }
+    /// <param name="fileName"></param>
+    //private void LoadClientConfig(string fileName = "./updater.json") {
+    //  GenerateDefaultConfig(isForce: true);
+    //  using (StreamReader fs = new StreamReader(fileName, Encoding.UTF8)) {
+    //    this.clientConfig = JsonConvert.DeserializeObject<ClientConfig>(fs.ReadToEnd());
+    //  }
+    //}
+    //private void GenerateDefaultConfig(string fileName = "./updater.json", bool isForce = false) {
+    //  if (!System.IO.File.Exists(fileName) || isForce) {
+    //    ClientConfig defaultSettings = JsonConvert.DeserializeObject<ClientConfig>(Resources.DefaultSettings);
+    //    FileHelper.WriteToFile(defaultSettings, fileName);
+    //  }
+    //}
     /// <summary>
     /// 加载客户端Files文件
     /// </summary>
@@ -189,19 +200,19 @@ namespace FileUpdater {
               if (!fileExists) {
 
                 deleteTasks.Add(new Task(() => {
-                  this.lbl_DownloadName.Text = $"删除{file.Name}中...";
+                  this.DownloadFileName.Text = $"删除{file.Name}中...";
                   FileHelper.Delete(file, releativeDirectory.Item1);
                 }));
 
                 downloadTasks.Add(new Task(() => {
-                  this.lbl_DownloadName.Text = $"下载{file.Name}中...";
+                  this.DownloadFileName.Text = $"下载{file.Name}中...";
                   HttpHelper.DownloadFile(serverConfig, file, releativeDirectory.Item1, this.UpdatePgb);
                 }));
               }
               break;
             case Enum.FileEventEnum.Delete:
               deleteTasks.Add(new Task(() => {
-                this.lbl_DownloadName.Text = $"删除{file.Name}中...";
+                this.DownloadFileName.Text = $"删除{file.Name}中...";
                 FileHelper.Delete(file, releativeDirectory.Item1);
               }));
               break;
@@ -233,16 +244,16 @@ namespace FileUpdater {
     #endregion
 
     #region 读取本地数据生成Json
-    private void GenerateLocalFiles() {
-      FileHelper.WriteToFile(FileHelper.GetDirectories(clientConfig.GenerateDir.ToArray(), Enum.FileEventEnum.Add), "./serverfiles.json");
-    }
+    //private void GenerateLocalFiles() {
+    //  FileHelper.WriteToFile(FileHelper.GetDirectories(clientConfig.GenerateDir.ToArray(), Enum.FileEventEnum.Add), "./serverfiles.json");
+    //}
     #endregion
 
     #region 更新检测
     private void CheckUpdate(bool forceUpdate = false) {
-      lbl_DownloadName.Visible = true;
-      lbl_DownloadName.ForeColor = Color.DarkOrange;
-      lbl_DownloadName.Text = "检查中...";
+      DownloadFileName.Visible = true;
+      DownloadFileName.ForeColor = Color.DarkOrange;
+      DownloadFileName.Text = "检查中...";
       LatestVersionLabel.Text = serverConfig.LatestVersion;
       if (forceUpdate || !clientConfig.CurrentVersion.Equals(serverConfig.LatestVersion)) {
         LatestVersionLabel.ForeColor = Color.Red;
@@ -257,22 +268,22 @@ namespace FileUpdater {
       }
     }
     private void UpdateCanceled() {
-      lbl_DownloadName.ForeColor = Color.Red;
-      lbl_DownloadName.Text = "用户拒绝更新,已取消";
+      DownloadFileName.ForeColor = Color.Red;
+      DownloadFileName.Text = "用户拒绝更新,已取消";
     }
     private void UpdateSuccessful(bool noUpdated = false) {
       if (!noUpdated) {
         clientConfig.CurrentVersion = serverConfig.LatestVersion;
         this.CurrentVersionLabel.Text = clientConfig.CurrentVersion;
 
-        lbl_DownloadName.Text = $"完毕,可以愉悦的启动游戏了";
-        lbl_DownloadName.ForeColor = Color.PaleGreen;
+        DownloadFileName.Text = $"完毕,可以愉悦的启动游戏了";
+        DownloadFileName.ForeColor = Color.PaleGreen;
         LatestVersionLabel.ForeColor = Color.PaleGreen;
 
         ShowMessageBox(false, "更新完成!", false);
       } else {
-        lbl_DownloadName.Text = $"已经是最新版本了";
-        lbl_DownloadName.ForeColor = Color.PaleGreen;
+        DownloadFileName.Text = $"已经是最新版本了";
+        DownloadFileName.ForeColor = Color.PaleGreen;
         LatestVersionLabel.ForeColor = Color.PaleGreen;
       }
     }
@@ -284,7 +295,7 @@ namespace FileUpdater {
       using (MemoryStream ms = new MemoryStream(iconBytes)) {
         Icon icon = new Icon(ms);
         this.Icon = icon;
-        pictureBox1.Image = Bitmap.FromHicon(icon.Handle);
+        HeadIcon.Image = Bitmap.FromHicon(icon.Handle);
       }
     }
     #endregion

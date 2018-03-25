@@ -27,13 +27,13 @@
       this.UpdateBtn = new System.Windows.Forms.Button();
       this.LatestVersionLabel = new System.Windows.Forms.Label();
       this.CurrentVersionLabel = new System.Windows.Forms.Label();
-      this.lbl_DownloadName = new System.Windows.Forms.Label();
+      this.DownloadFileName = new System.Windows.Forms.Label();
       this.UpdatePgb = new System.Windows.Forms.ProgressBar();
       this.TitleLbl = new System.Windows.Forms.Label();
       this.CloseApplication = new System.Windows.Forms.Label();
       this.HeadBgd = new System.Windows.Forms.Label();
-      this.pictureBox1 = new System.Windows.Forms.PictureBox();
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      this.HeadIcon = new System.Windows.Forms.PictureBox();
+      ((System.ComponentModel.ISupportInitialize)(this.HeadIcon)).BeginInit();
       this.SuspendLayout();
       // 
       // UpdateBtn
@@ -66,16 +66,16 @@
       this.CurrentVersionLabel.TabIndex = 16;
       this.CurrentVersionLabel.Text = "当前版本";
       // 
-      // lbl_DownloadName
+      // DownloadFileName
       // 
-      this.lbl_DownloadName.AutoSize = true;
-      this.lbl_DownloadName.ForeColor = System.Drawing.Color.PaleGreen;
-      this.lbl_DownloadName.Location = new System.Drawing.Point(10, 65);
-      this.lbl_DownloadName.Name = "lbl_DownloadName";
-      this.lbl_DownloadName.Size = new System.Drawing.Size(83, 12);
-      this.lbl_DownloadName.TabIndex = 17;
-      this.lbl_DownloadName.Text = "更新检测中...";
-      this.lbl_DownloadName.Visible = false;
+      this.DownloadFileName.AutoSize = true;
+      this.DownloadFileName.ForeColor = System.Drawing.Color.PaleGreen;
+      this.DownloadFileName.Location = new System.Drawing.Point(10, 65);
+      this.DownloadFileName.Name = "DownloadFileName";
+      this.DownloadFileName.Size = new System.Drawing.Size(83, 12);
+      this.DownloadFileName.TabIndex = 17;
+      this.DownloadFileName.Text = "更新检测中...";
+      this.DownloadFileName.Visible = false;
       // 
       // UpdatePgb
       // 
@@ -122,15 +122,15 @@
       this.HeadBgd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HeadBgd_MouseDown);
       this.HeadBgd.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HeadBgd_MouseMove);
       // 
-      // pictureBox1
+      // HeadIcon
       // 
-      this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(73)))), ((int)(((byte)(120)))));
-      this.pictureBox1.Location = new System.Drawing.Point(2, 1);
-      this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(25, 25);
-      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-      this.pictureBox1.TabIndex = 19;
-      this.pictureBox1.TabStop = false;
+      this.HeadIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(73)))), ((int)(((byte)(120)))));
+      this.HeadIcon.Location = new System.Drawing.Point(2, 1);
+      this.HeadIcon.Name = "HeadIcon";
+      this.HeadIcon.Size = new System.Drawing.Size(25, 25);
+      this.HeadIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+      this.HeadIcon.TabIndex = 19;
+      this.HeadIcon.TabStop = false;
       // 
       // Updater
       // 
@@ -138,11 +138,11 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(71)))), ((int)(((byte)(94)))));
       this.ClientSize = new System.Drawing.Size(250, 105);
-      this.Controls.Add(this.pictureBox1);
+      this.Controls.Add(this.HeadIcon);
       this.Controls.Add(this.UpdateBtn);
       this.Controls.Add(this.LatestVersionLabel);
       this.Controls.Add(this.CurrentVersionLabel);
-      this.Controls.Add(this.lbl_DownloadName);
+      this.Controls.Add(this.DownloadFileName);
       this.Controls.Add(this.UpdatePgb);
       this.Controls.Add(this.TitleLbl);
       this.Controls.Add(this.CloseApplication);
@@ -153,7 +153,7 @@
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Updater_FormClosing);
       this.Load += new System.EventHandler(this.Updater_Load);
       this.Shown += new System.EventHandler(this.Updater_Shown);
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.HeadIcon)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -164,12 +164,12 @@
     private System.Windows.Forms.Button UpdateBtn;
     private System.Windows.Forms.Label LatestVersionLabel;
     private System.Windows.Forms.Label CurrentVersionLabel;
-    private System.Windows.Forms.Label lbl_DownloadName;
+    private System.Windows.Forms.Label DownloadFileName;
     private System.Windows.Forms.ProgressBar UpdatePgb;
     private System.Windows.Forms.Label TitleLbl;
     private System.Windows.Forms.Label CloseApplication;
     private System.Windows.Forms.Label HeadBgd;
-    private System.Windows.Forms.PictureBox pictureBox1;
+    private System.Windows.Forms.PictureBox HeadIcon;
   }
 }
 
