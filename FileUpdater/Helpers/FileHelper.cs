@@ -45,7 +45,7 @@ namespace FileUpdater.Helpers {
           directory.Files = new List<Models.File>();
           foreach (var file in System.IO.Directory.GetFiles(dir)) {
             directory.Files.Add(new Models.File() {
-              Name = file.Substring(file.LastIndexOf("\\") + 1),
+              Name = Path.GetFileName(file),
               Event = fileEvent,
               MD5 = FileHelper.CalculateMD5(file)
             });
@@ -93,6 +93,19 @@ namespace FileUpdater.Helpers {
         result = true;
       } else {
         result = false;
+      }
+      return result;
+    }
+    public static bool CheckFileExists(string fullPath) {
+      if (File.Exists(fullPath))
+        return true;
+      else
+        return false;
+    }
+    public static string ReadFromFile(string filePath) {
+      string result = null;
+      using (StreamReader fs = new StreamReader(filePath, Encoding.UTF8)) {
+        result = fs.ReadToEnd();
       }
       return result;
     }

@@ -59,5 +59,32 @@ namespace FileUpdater.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   查找类似 {
+        ///  &quot;CurrentVersion&quot;: null,
+        ///  &quot;ServerUrl&quot;: null,
+        ///  &quot;MainFile&quot;: null,
+        ///  &quot;GenerateDir&quot;: [],
+        ///  &quot;Debug&quot;: true,
+        ///  &quot;Icon&quot;: null,
+        ///  &quot;Base64Icon&quot;: null
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string DefaultSettings {
+            get {
+                return ResourceManager.GetString("DefaultSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon Icon {
+            get {
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
