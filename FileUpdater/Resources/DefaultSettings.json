@@ -2,7 +2,9 @@
   "CurrentVersion": null,
   "ServerUrl": null,
   "MainFile": null,
-  "GenerateDir": [],
+  "GenerateDir": [
+    ".\\.minecraft\\mods"
+  ],
   "Debug": true,
   "Icon": null,
   "Base64Icon": null
